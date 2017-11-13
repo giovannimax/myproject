@@ -6,13 +6,12 @@
 
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { exListView } from './components/Listview';
 
 import React, { Component } from 'react';
 import {
   Platform,
-  StyleSheet,
-  ListView,
+  StyleSheet,ListView,
   Text,
   View,
   Button,
@@ -33,10 +32,10 @@ export default class App extends Component<{}> {
   constructor() {
     super();
     var todo;
-    var dataa= new Array();
+    var dataa= new Array(2,2);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(dataa),todo: ""
+     dataSource: ds.cloneWithRows(dataa),todo: ""
     };
   }
 
@@ -79,20 +78,11 @@ export default class App extends Component<{}> {
           TODOs
         </Text>
         <View style={styles.hr}></View>
-      <ListView style={styles.lv}
-        dataSource={this.state.dataSource}
-        renderRow={(rowData,sectionID,rowID) => <View style={styles.item}><Text style={styles.datatext}>{rowData}</Text>
-        <View style={styles.right}>
-        <TouchableHighlight onPress={()=>this.deletedata(rowID)}>
-        <Icon name="minus" style={styles.icon}/>
-      </TouchableHighlight>
-        </View></View>}
-        enableEmptySections
-      />
+      <exListView>{this.state.dataSource}</exListView>
       <View style={styles.inputarea}>
       <TextInput style={styles.textbox} multiline = {true}
          numberOfLines = {4} ref= "username" 
-        returnKeyLabel = {"next"}
+        returnKeyLabel = {"next"} 
         onChangeText={(text) => this.setState({todo: text})}
         value= {this.state.todo}
          >
